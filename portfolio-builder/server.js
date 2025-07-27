@@ -5,6 +5,7 @@ const helmet = require('helmet');
 const rateLimit = require('express-rate-limit');
 require('dotenv').config();
 
+
 const db = require('./db/database');
 const authRoutes = require('./routes/auth');
 const contentRoutes = require('./routes/content');
@@ -14,7 +15,7 @@ const app = express();
 const PORT = process.env.PORT || 12001;
 
 // Trust proxy for rate limiting and security
-app.set('trust proxy', true);
+app.set("trust proxy", process.env.NODE_ENV === "production" ? 1 : false);
 
 // Security middleware
 app.use(helmet({
